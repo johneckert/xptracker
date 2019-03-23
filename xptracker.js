@@ -7,9 +7,10 @@ const port = 3001
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); 
 
-app.get('/', (req, res) => res.send('GET!'))
+let xp = 0;
 
-let xp = 0
+app.get("/", (req, res) => res.send(JSON.stringify(xp)));
+
 
 app.post("/", (req, res) => {
     xp += parseInt(req.body.xp)
