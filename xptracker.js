@@ -88,11 +88,12 @@ function getLevel(xp) {
 app.get("/", (req, res) => { res.send(JSON.stringify('BEEP BOOP'))})
 
 app.post("/", (req, res) => {
+    console.log(req)
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
     let value = args[1] ? parseInt(args[1]) : 0;
-    let xp = updateXp(command, value);
-    let level = getLevel(xp);
+    let xp = updateXp(command, value) || 'error';
+    let level = getLevel(xp) || 'error';
     res.status(200)
     res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
 });
