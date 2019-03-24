@@ -1,5 +1,5 @@
 {
-    "name": "XP Tracker",
+    "name": "XPTracker",
     "version": "0.0.1",
     "description": "simple slack app for tracking party xp",
     "scripts": {
