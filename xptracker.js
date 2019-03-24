@@ -94,12 +94,12 @@ app.post("/", (req, res) => {
     res.status(200)
 
     if (command === 'HELP') {
-        res.send(JSON.stringify("Invalid Command. Please use add [value], subtract [value], set [value] or get [value]"));
+        res.send(JSON.stringify("Please use add [value], subtract [value], set [value] or get [value]"));
     } else {
         let value = args[1] ? parseInt(args[1]) : 0;
         let xp = updateXp(command, value);
         let level = getLevel(xp);
-        
+
         res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
     }
 
