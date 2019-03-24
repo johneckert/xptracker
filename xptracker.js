@@ -19,7 +19,7 @@ function updateXp(command, value) {
       case "GET":
         return xp;
       default:
-        return false;
+        return help;
     }
 }
 
@@ -95,12 +95,13 @@ app.post("/", (req, res) => {
     let level = getLevel(xp);
     res.status(200)
 
-    process.env.XP_VALUE = xp;
-    if (xp) {
-        res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
-    } else {
+    if (command === 'HELP') {
         res.send(JSON.stringify("Invalid Command. Please use add [value], subtract [value], set [value] or get [value]"));
+        break;
     }
+
+    res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
+
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
