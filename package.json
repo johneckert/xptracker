@@ -3,14 +3,14 @@
     "version": "0.0.1",
     "description": "simple slack app for tracking party xp",
     "scripts": {
-        "start": "node ./xptracker.js"
+        "start": "node xptracker.js"
     },
     "dependencies": {
         "body-parser": "^1.18.3",
-        "express": "^4.16.4",
-        "pg-promise": "^8.6.4"
+        "express": "^4.16.4"
     },
     "devDependencies": {
         "nodemon": "^1.18.10"
-    }
+    },
+    "main": "xptracker.js"
 }
