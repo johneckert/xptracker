@@ -19,7 +19,7 @@ function updateXp(command, value) {
       case "GET":
         return xp;
       default:
-        return "Invalid Command. Please use add [value], subtract [value], set [value] or get [value]";
+        return false;
     }
 }
 
@@ -96,8 +96,11 @@ app.post("/", (req, res) => {
     res.status(200)
 
     process.env.XP_VALUE = xp;
-
-    res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
+    if (xp) {
+        res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
+    } else {
+        res.send(JSON.stringify("Invalid Command. Please use add [value], subtract [value], set [value] or get [value]"));
+    }
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
