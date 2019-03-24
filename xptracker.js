@@ -87,6 +87,7 @@ function getLevel(xp) {
 
 
 app.post("/", (req, res) => {
+    console.log(req)
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
     let value = args[1] ? parseInt(args[1]) : 0;
