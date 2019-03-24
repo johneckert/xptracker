@@ -93,7 +93,7 @@ app.post("/", (req, res) => {
     let value = args[1] ? parseInt(args[1]) : 0;
     let xp = updateXp(command, value);
     let level = getLevel(xp);
-
+    res.status(200)
     res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
 });
 
