@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require("body-parser");
 const app = express()
-const port = process.env.PORT || 80;
+const port = 8081;
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -99,4 +99,4 @@ app.post("/", (req, res) => {
     res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Listening on port ${port}!`))
