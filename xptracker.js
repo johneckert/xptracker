@@ -6,8 +6,7 @@ const port = process.env.PORT || app.use(bodyParser.urlencoded({ extended: false
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-let xp = process.env.XP_VALUE || 0;
-let level = 1
+let xp = 0;
 
 function updateXp(command, value) {
     switch (command) {
