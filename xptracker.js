@@ -91,8 +91,8 @@ app.post("/", (req, res) => {
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
     let value = args[1] ? parseInt(args[1]) : 0;
-    let xp = updateXp(command, value) || 'error';
-    let level = getLevel(xp) || 'error';
+    let xp = updateXp(command, value);
+    let level = getLevel(xp);
     res.status(200)
 
     process.env.XP_VALUE = xp;
