@@ -90,14 +90,16 @@ app.get("/", (req, res) => { res.send(JSON.stringify('BEEP BOOP'))})
 app.post("/", (req, res) => {
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
-    let value = args[1] ? parseInt(args[1]) : 0;
-    let xp = updateXp(command, value);
-    let level = getLevel(xp);
+   
     res.status(200)
 
     if (command === 'HELP') {
         res.send(JSON.stringify("Invalid Command. Please use add [value], subtract [value], set [value] or get [value]"));
     } else {
+        let value = args[1] ? parseInt(args[1]) : 0;
+        let xp = updateXp(command, value);
+        let level = getLevel(xp);
+        
         res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
     }
 
