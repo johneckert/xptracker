@@ -6,7 +6,7 @@ const port = process.env.PORT || app.use(bodyParser.urlencoded({ extended: false
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-let xp = 0;
+let xp = process.env.XP_VALUE || 0;
 let level = 1
 
 function updateXp(command, value) {
@@ -89,13 +89,15 @@ function getLevel(xp) {
 app.get("/", (req, res) => { res.send(JSON.stringify('BEEP BOOP'))})
 
 app.post("/", (req, res) => {
-    console.log(req.body)
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
     let value = args[1] ? parseInt(args[1]) : 0;
     let xp = updateXp(command, value) || 'error';
     let level = getLevel(xp) || 'error';
     res.status(200)
+
+    process.env.XP_VALUE = xp;
+
     res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
 });
 
