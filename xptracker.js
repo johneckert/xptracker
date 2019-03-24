@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require("body-parser");
 const app = express()
 const port = process.env.PORT || app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json()); 
 
 let xp = 0;
@@ -84,10 +85,9 @@ function getLevel(xp) {
         return 1;
     }
 }
-
+app.get("/", (req, res) => { res.send(JSON.stringify('BEEP BOOP'))})
 
 app.post("/", (req, res) => {
-    console.log(req.body)
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
     let value = args[1] ? parseInt(args[1]) : 0;
