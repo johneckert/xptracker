@@ -88,7 +88,7 @@ function getLevel(xp) {
 app.get("/", (req, res) => { res.send(JSON.stringify('BEEP BOOP'))})
 
 app.post("/", (req, res) => {
-    console.log(JSON.parse(req.body))
+    console.log(req.body)
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
     let value = args[1] ? parseInt(args[1]) : 0;
