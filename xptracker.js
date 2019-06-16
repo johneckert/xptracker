@@ -127,19 +127,19 @@ app.post("/", (req, res) => {
     else {
         // get record
         base('stdXp').find('reclFy0QG6sGDICKc', function (err, record) {
-        if (err) { 
-            console.error('err:', err); 
-            return; 
-        }
+            if (err) { 
+                console.error('err:', err); 
+                return; 
+            }
         level = record.fields.Level
         currentXp = record.fields.XP
-        });
-
-
         let value = args[1] ? parseInt(args[1]) : 0;
         let newXp = updateXp(command, value, currentXp);
 
         res.send(JSON.stringify(`Current XP: ${newXp} | Current Level: ${level}`))
+        });
+
+
     }
 
 
