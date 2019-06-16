@@ -4,7 +4,8 @@ const app = express()
 const port = process.env.PORT || app.use(bodyParser.urlencoded({ extended: false }));
 //const port = 9091
 const config = require('./config')
-const apiKey = process.env.AIRTABLE || config.airtable;
+const apiKey = process.env.AIRTABLE
+//const apiKey = config.airtable;
 
 var Airtable = require('airtable');
 Airtable.configure({
