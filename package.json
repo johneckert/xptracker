@@ -6,6 +6,7 @@
         "start": "node xptracker.js"
     },
     "dependencies": {
+        "airtable": "^0.6.0",
         "body-parser": "^1.18.3",
         "express": "^4.16.4"
     },

@@ -2,25 +2,52 @@ const express = require('express')
 const bodyParser = require("body-parser");
 const app = express()
 const port = process.env.PORT || app.use(bodyParser.urlencoded({ extended: false }));
+//const port = 9091
+const config = require('./config')
+const apiKey = config.airtable;
+
+var Airtable = require('airtable');
+Airtable.configure({
+    endpointUrl: 'https://api.airtable.com',
+    apiKey: apiKey
+});
+var base = Airtable.base('appntcNcyTVBPTsvd');
 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-let xp = 0;
-
-function updateXp(command, value) {
+function updateXp(command, value, oldXp) {
+    let newXp;
     switch (command) {
       case "ADD":
-        return (xp += value);
+        newXp = oldXp += value;
+        updateAirTable(newXp);
+        return newXp;
       case "SUBTRACT":
-        return (xp -= value);
+        newXp = oldXp -= value;
+            updateAirTable(newXp);
+        return newXp;
       case "SET":
-        return (xp = value);
+        newXp = value;
+        updateAirTable(newXp);
+        return newXp;
       case "GET":
-        return xp;
+        return oldXp;
       default:
         return help;
     }
+}
+
+function updateAirTable(newXp) {
+    base('stdXp').update("recBYdyEXSHOdoO6f", 
+        {"XP": newXp, "Level": getLevel(newXp)}, 
+        function (err, record) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+        }
+    );
 }
 
 function getLevel(xp) {
@@ -90,17 +117,28 @@ app.get("/", (req, res) => { res.send(JSON.stringify('BEEP BOOP'))})
 app.post("/", (req, res) => {
     let args = req.body.text.split(" ");
     let command = args[0].toUpperCase();
-   
+    let currentXp, level;
     res.status(200)
 
     if (command === 'HELP') {
         res.send(JSON.stringify("Please use add [value], subtract [value], set [value] or get [value]"));
-    } else {
-        let value = args[1] ? parseInt(args[1]) : 0;
-        let xp = updateXp(command, value);
-        let level = getLevel(xp);
+    } 
+    else {
+        // get record
+    base('stdXp').find('reclFy0QG6sGDICKc', function (err, record) {
+        if (err) { 
+            console.error('err:', err); 
+            return; 
+        }
+        level = record.fields.Level
+        currentXp = record.fields.XP
+        });
 
-        res.send(JSON.stringify(`Current XP: ${xp} | Current Level: ${level}`))
+
+        let value = args[1] ? parseInt(args[1]) : 0;
+        let newXp = updateXp(command, value, currentXp);
+
+        res.send(JSON.stringify(`Current XP: ${newXp} | Current Level: ${level}`))
     }
 
 
