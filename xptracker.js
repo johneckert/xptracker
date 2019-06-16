@@ -40,7 +40,7 @@ function updateXp(command, value, oldXp) {
 }
 
 function updateAirTable(newXp) {
-    base('stdXp').update("recBYdyEXSHOdoO6f", 
+    base('stdXp').update('reclFy0QG6sGDICKc', 
         {"XP": newXp, "Level": getLevel(newXp)}, 
         function (err, record) {
             if (err) {
